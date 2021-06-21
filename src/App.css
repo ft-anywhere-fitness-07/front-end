@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.navLink{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
