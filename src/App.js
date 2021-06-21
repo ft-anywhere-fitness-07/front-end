@@ -9,6 +9,7 @@ function App() {
       <header className="App-header">
         <h1>Anywhere Fitness</h1>
       </header>
+      <SignUp/>
     </div>
   );
 }

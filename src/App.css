@@ -46,12 +46,19 @@
   justify-content: center;
   align-items: center;
   margin: auto;
+
 }
 
 .form {
   display: flex;
-  height: 25vh;
+  height: 35vh;
   flex-direction: column;
   justify-content: space-around;
   width: 50%;
+}
+
+.formInputs{
+  display: flex;
+  flex-direction: column;
+
 }
