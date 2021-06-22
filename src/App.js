@@ -9,6 +9,7 @@ import SignIn from './components/SignIn';
 import PrivateRoute from './components/PrivateRoute';
 import Classes from './components/Classes';
 import Home from './components/Home';
+import CreateClass from './components/CreateClass';
 
 function App() {
   const { push } = useHistory();
@@ -51,7 +52,7 @@ function App() {
           <SignIn />
         </Route>
 
-        <PrivateRoute exact path='/classes' component={Classes}>
+        <PrivateRoute exact path='/classes' component={CreateClass}>
         </PrivateRoute>
       </Switch>
     </div>
