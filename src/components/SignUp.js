@@ -20,7 +20,6 @@ const SignUp = () => {
             ...formValues,
             [e.target.name]: e.target.value
         })
-        console.log(formValues)
     }
 
     const onSubmit = (e) => {
