@@ -26,7 +26,7 @@ const SignIn = () => {
         axiosWithAuth()
         .post("/api/auth/login", formValues)
         .then(res => {
-            console.log(res)
+            localStorage.setItem("token", res.data.token)
             push("/classes")
         })
         .catch(err => {
