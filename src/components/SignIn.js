@@ -1,19 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormControl, FormHelperText, Button, TextField } from '@material-ui/core';
 import axiosWithAuth from '../utils/axiosWithAuth';
-import { useHistory } from 'react-router-dom'
-;
+import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+import * as yup from 'yup';
+import schema from './../validation/signInFormSchema';
+
+const useStyles = makeStyles({
+    errorText: {
+        color:"red"
+    }
+});
+
 const initialFormValues = {
     username:"",
     password:""
 }
 
+const initialFormErrors = {
+    username: "",
+    password:""
+}
+
 const SignIn = () => {
     const [formValues, setFormValues] = useState(initialFormValues);
+    const [formErrors, setFormErrors] = useState(initialFormErrors);
+    const [disabled, setDisabled] = useState(true);
+    const [signInError, setSignInError] = useState("");
     const { push } = useHistory();
+
+    const classes = useStyles();
 
     const onChange = (e) => {
         e.preventDefault();
+        const { name, value } = e.target
+        validate(name, value)
         setFormValues({
             ...formValues,
             [e.target.name]: e.target.value
@@ -31,8 +53,21 @@ const SignIn = () => {
         })
         .catch(err => {
             console.log(err)
+            setSignInError(err)
+            setFormValues(initialFormValues)
         })
     }
+
+    const validate = (name, value) => {
+        yup.reach(schema, name)
+        .validate(value)
+        .then(res => setFormErrors({...formErrors, [name]:""}))
+        .catch(err => setFormErrors({...formErrors, [name]:err.errors[0]}))
+    }
+
+    useEffect(() => {
+        schema.isValid(formValues).then(valid => setDisabled(!valid))
+    }, [formValues])
  
     return(
         <div>
@@ -46,12 +81,11 @@ const SignIn = () => {
                             label="Username" 
                             aria-describedby="username input field"
                             defaultValue="Username"
-
                             type="text"
                             name="username"
                             value={formValues.username}
                             onChange={onChange} />
-                        {/* <FormHelperText id="my-helper-text">We'll never share your email</FormHelperText> */}
+                        <FormHelperText className={classes.errorText} id="my-helper-text">{formErrors.username ? `${formErrors.username}` : ""}</FormHelperText>
                     </FormControl>
 
                     <FormControl>
@@ -64,9 +98,10 @@ const SignIn = () => {
                             name="password"
                             value={formValues.password}
                             onChange={onChange} />
-                        {/* <FormHelperText id="my-helper-text">Must be at least 8 characters</FormHelperText> */}
+                        <FormHelperText className={classes.errorText}  id="my-helper-text">{formErrors.password ? `${formErrors.password}` : ""}</FormHelperText>
                     </FormControl>
-                    <Button variant="contained" color="primary" onClick={onSubmit}>Sign In</Button>
+                    <p className={classes.errorText}>{signInError ? "Unable to sign in" : ""}</p>
+                    <Button variant="contained" disabled={disabled} color="primary" onClick={onSubmit}>Sign In</Button>
                 </form>
             </div>
         </div>

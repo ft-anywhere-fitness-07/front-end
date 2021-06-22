@@ -119,3 +119,7 @@ footer {
   padding: 0;
   height: 5vh;
 }
+
+.errorText {
+  color: red;
+}

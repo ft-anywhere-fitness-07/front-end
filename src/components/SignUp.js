@@ -4,6 +4,24 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import schema from '../validation/signUpFormSchema';
 import * as yup from 'yup';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { blue } from '@material-ui/core/colors';
+
+const useStyles = makeStyles({
+    errorText: {
+        color:"red"
+    }
+});
+
+const BlueRadio = withStyles({
+    root: {
+        color: blue[400],
+        '&checked': {
+            color: blue[600],
+        },
+    },
+    checked :{},
+})((props) => <Radio color="default" {...props} />);
 
 const initialFormValues = {
     username:"",
@@ -25,10 +43,11 @@ const SignUp = () => {
     const [disabled, setDisabled] = useState(true);
     const { push } = useHistory();
 
+    const classes = useStyles();
+
     const handleChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
-        console.log(e.target)
         validate(name,value);
         setFormValues({
             ...formValues,
@@ -76,7 +95,7 @@ const SignUp = () => {
                             onChange={handleChange}
                             error={formErrors.username ? true : false}
                             />
-                        <FormHelperText id="my-helper-text">{formErrors.username ? `${formErrors.username}` : "Must be at least 8 characters"}</FormHelperText>
+                        <FormHelperText id="my-helper-text">{formErrors.username ? <p className={classes.errorText}>{formErrors.username}</p> : "Must be at least 8 characters"}</FormHelperText>
                     </FormControl>
 
                     <FormControl className="formInputs">
@@ -92,7 +111,7 @@ const SignUp = () => {
                             value={formValues.email}
                             onChange={handleChange}
                             error={formErrors.email ? true : false} />
-                        <FormHelperText id="my-helper-text">{formErrors.email ? `${formErrors.email}` : "We'll never share your email"}</FormHelperText>
+                        <FormHelperText id="my-helper-text">{formErrors.email ? <p className={classes.errorText}>{formErrors.email}</p> : "We'll never share your email"}</FormHelperText>
                     </FormControl>
 
                     <FormControl>
@@ -106,14 +125,24 @@ const SignUp = () => {
                             value={formValues.password}
                             onChange={handleChange}
                             error={formErrors.password ? true : false} />
-                        <FormHelperText id="my-helper-text">{formErrors.password ? `${formErrors.password}` : "Must be at least 8 characters"}</FormHelperText>
+                        <FormHelperText id="my-helper-text">{formErrors.password ? <p className={classes.errorText}>{formErrors.password}</p> : "Must be at least 8 characters"}</FormHelperText>
                     </FormControl>
 
                     <FormControl component="fieldset">
                     <FormLabel component="legend">Role</FormLabel>
                         <RadioGroup aria-label="role" value={formValues.role} name="role" onChange={handleChange}>
-                            <FormControlLabel name="role" value="client" checked={formValues.role === "client"} control={<Radio />} label="Client" />
-                            <FormControlLabel name="role" value="instructor" checked={formValues.role === "instructor"} control={<Radio />} label="Instructor" />
+                            <FormControlLabel 
+                                name="role" 
+                                value="client" 
+                                checked={formValues.role === "client"} 
+                                control={<BlueRadio />} label="Client"
+                                inputProps={{ 'aria-label': 'client'}} />
+                            <FormControlLabel 
+                                name="role" 
+                                value="instructor" 
+                                checked={formValues.role === "instructor"} 
+                                control={<BlueRadio />} label="Instructor"
+                                inputProps={{ 'aria-label': 'instructor'}} />
                         </RadioGroup>
                     </FormControl>
 
