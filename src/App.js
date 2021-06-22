@@ -5,6 +5,7 @@ import { AppBar, Tabs, Tab } from '@material-ui/core'
 // components
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import CreateClass from './components/CreateClass';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
         </Route>
 
         <Route exact path='/classes'>
-          {/* Classes component - only shown when logged in */}
+          <CreateClass />
         </Route>
 
       </Switch>
