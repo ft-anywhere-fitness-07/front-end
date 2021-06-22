@@ -147,7 +147,7 @@ const SignUp = () => {
                                 inputProps={{ 'aria-label': 'instructor'}} />
                         </RadioGroup>
                     </FormControl>
-
+                    <p className={classes.errorText}>{signUpError ? "Unable to sign up: Username or Email may already be taken" : ""}</p>
                     <Button variant="contained" color="primary" disabled={disabled} onClick={onSubmit}>Sign Up</Button>
                 </form>
             </div>
