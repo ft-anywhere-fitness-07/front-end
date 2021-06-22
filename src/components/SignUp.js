@@ -23,6 +23,7 @@ const SignUp = () => {
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialErrorValues);
     const [disabled, setDisabled] = useState(true);
+    const [signUpError, setSignUpError] = useState("");
     const { push } = useHistory();
 
     const handleChange = (e) => {
@@ -45,6 +46,7 @@ const SignUp = () => {
         })
         .catch(err => {
             console.log(err)
+            setSignUpError(err)
         })
     }
 
