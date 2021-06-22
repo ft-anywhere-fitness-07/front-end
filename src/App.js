@@ -3,7 +3,9 @@ import './App.css';
 import { Link, Route, Switch } from 'react-router-dom'
 import { AppBar, Tabs, Tab, TabPanel } from '@material-ui/core'
 
+// components
 import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 function App() {
   return (
@@ -29,8 +31,8 @@ function App() {
           <SignUp />
         </Route>
 
-        <Route exact path='sign-in'>
-          {/* Sign in component */}
+        <Route exact path='/sign-in'>
+          <SignIn />
         </Route>
 
         <Route exact path='/classes'>
