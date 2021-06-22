@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
-import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio } from '@material-ui/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import schema from '../validation/signUpFormSchema';
+import * as yup from 'yup';
 
 const initialFormValues = {
+    username:"",
+    email:"",
+    password:"",
+    role:"client"
+}
+
+const initialErrorValues = {
     username:"",
     email:"",
     password:"",
@@ -12,10 +21,15 @@ const initialFormValues = {
 
 const SignUp = () => {
     const [formValues, setFormValues] = useState(initialFormValues);
+    const [formErrors, setFormErrors] = useState(initialErrorValues);
+    const [disabled, setDisabled] = useState(true);
     const { push } = useHistory();
 
     const handleChange = (e) => {
         e.preventDefault();
+        const { name, value } = e.target;
+        console.log(e.target)
+        validate(name,value);
         setFormValues({
             ...formValues,
             [e.target.name]: e.target.value
@@ -26,14 +40,24 @@ const SignUp = () => {
         e.preventDefault();
         axios.post("https://anywhere-fitness-back-end.herokuapp.com/api/auth/register", formValues)
         .then(res=> {
-            console.log(res)
-            // localStorage.setItem("token", res.data.token)
+            localStorage.setItem("token", res.data.token)
             push("/classes")
         })
         .catch(err => {
             console.log(err)
         })
     }
+
+    const validate = (name, value) => {
+        yup.reach(schema, name)
+            .validate(value)
+            .then(() => setFormErrors({...formErrors, [name]:""}))
+            .catch(err => setFormErrors({...formErrors, [name]:err.errors[0]}))
+    }
+
+    useEffect(() => {
+        schema.isValid(formValues).then(valid => setDisabled(!valid))
+    }, [formValues])
 
     return(
         <div>
@@ -49,8 +73,10 @@ const SignUp = () => {
                             type="text"
                             name="username"
                             value={formValues.username}
-                            onChange={handleChange} />
-                        <FormHelperText id="my-helper-text">Must be at least 8 characters</FormHelperText>
+                            onChange={handleChange}
+                            error={formErrors.username ? true : false}
+                            />
+                        <FormHelperText id="my-helper-text">{formErrors.username ? `${formErrors.username}` : "Must be at least 8 characters"}</FormHelperText>
                     </FormControl>
 
                     <FormControl className="formInputs">
@@ -64,8 +90,9 @@ const SignUp = () => {
                             type="email"
                             name="email"
                             value={formValues.email}
-                            onChange={handleChange} />
-                        <FormHelperText id="my-helper-text">We'll never share your email</FormHelperText>
+                            onChange={handleChange}
+                            error={formErrors.email ? true : false} />
+                        <FormHelperText id="my-helper-text">{formErrors.email ? `${formErrors.email}` : "We'll never share your email"}</FormHelperText>
                     </FormControl>
 
                     <FormControl>
@@ -77,15 +104,20 @@ const SignUp = () => {
                             type="password"
                             name="password"
                             value={formValues.password}
-                            onChange={handleChange} />
-                        <FormHelperText id="my-helper-text">Must be at least 8 characters</FormHelperText>
+                            onChange={handleChange}
+                            error={formErrors.password ? true : false} />
+                        <FormHelperText id="my-helper-text">{formErrors.password ? `${formErrors.password}` : "Must be at least 8 characters"}</FormHelperText>
                     </FormControl>
 
-                    <RadioGroup aria-label="role" value={formValues.role} name="role" onChange={handleChange}>
-                        <FormControlLabel value="client" control={<Radio />} label="Client" />
-                        <FormControlLabel value="instructor" control={<Radio />} label="Instructor" />
-                    </RadioGroup>
-                    <Button variant="contained" color="primary" onClick={onSubmit}>Sign Up</Button>
+                    <FormControl component="fieldset">
+                    <FormLabel component="legend">Role</FormLabel>
+                        <RadioGroup aria-label="role" value={formValues.role} name="role" onChange={handleChange}>
+                            <FormControlLabel name="role" value="client" checked={formValues.role === "client"} control={<Radio />} label="Client" />
+                            <FormControlLabel name="role" value="instructor" checked={formValues.role === "instructor"} control={<Radio />} label="Instructor" />
+                        </RadioGroup>
+                    </FormControl>
+
+                    <Button variant="contained" color="primary" disabled={disabled} onClick={onSubmit}>Sign Up</Button>
                 </form>
             </div>
         </div>
