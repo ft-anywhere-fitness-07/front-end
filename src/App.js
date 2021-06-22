@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import { Link, Route, Switch } from 'react-router-dom'
-import { AppBar, Tabs, Tab, TabPanel } from '@material-ui/core'
+import { AppBar, Tabs, Tab } from '@material-ui/core'
 
 // components
 import SignUp from './components/SignUp';
