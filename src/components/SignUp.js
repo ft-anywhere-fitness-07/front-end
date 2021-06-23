@@ -97,6 +97,7 @@ const SignUp = (props) => {
                 <h2>Sign Up</h2>
                 <form className="form">
                 <Grid>
+                    <Grid>
                     <TextField 
                             id="filled-basic"
                             label="Create username" 
@@ -112,8 +113,8 @@ const SignUp = (props) => {
                             error={formErrors.username ? true : false}
                             />
                         <FormHelperText id="my-helper-text">{formErrors.username ? <p className={classes.errorText}>{formErrors.username}</p> : "Must be at least 8 characters"}</FormHelperText>
-
-                    
+                        </Grid>
+                        <Grid>
                         {/* <InputLabel htmlFor="my-input"></InputLabel> */}
                         <TextField 
                             id="filled-basic"
@@ -129,7 +130,7 @@ const SignUp = (props) => {
                             onChange={handleChange}
                             error={formErrors.email ? true : false} />
                         <FormHelperText id="my-helper-text">{formErrors.email ? <p className={classes.errorText}>{formErrors.email}</p> : "We'll never share your email"}</FormHelperText>
-                    
+                        </Grid>
 
                     
                     <TextField 
