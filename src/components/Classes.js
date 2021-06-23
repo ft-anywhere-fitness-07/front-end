@@ -39,7 +39,7 @@ const Classes = (props) => {
             </div>
            <Grid container spacing={2}>
             {
-                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item}/>)
+                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item} classList={classList} setClassList={setClassList}/>)
             }
             </Grid>
         </div >
