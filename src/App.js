@@ -7,7 +7,6 @@ function App() {
   const [isAuth, setIsAuth] = useState(false)
   const [isInstructor, setIsInstructor] = useState(false);
   const [classList, setClassList] = useState([]);
-  console.log(isInstructor)
 
   return (
     <div>
