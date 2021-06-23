@@ -37,7 +37,7 @@ const initialErrorValues = {
     role:""
 }
 
-const SignUp = () => {
+const SignUp = ({ isAuth, setIsAuth }) => {
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialErrorValues);
     const [disabled, setDisabled] = useState(true);
@@ -61,6 +61,7 @@ const SignUp = () => {
         axios.post("https://anywhere-fitness-back-end.herokuapp.com/api/auth/register", formValues)
         .then(res=> {
             localStorage.setItem("token", res.data.token)
+            setIsAuth(true)
             push("/classes")
         })
         .catch(err => {
