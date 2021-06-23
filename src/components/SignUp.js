@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio } from '@material-ui/core';
+import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio, Container, Grid, Box } from '@material-ui/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import schema from '../validation/signUpFormSchema';
 import * as yup from 'yup';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { blue } from '@material-ui/core/colors';
+import { indigo } from '@material-ui/core/colors';
+import { spacing } from '@material-ui/system';
 
 const useStyles = makeStyles({
     errorText: {
@@ -13,11 +14,15 @@ const useStyles = makeStyles({
     }
 });
 
+const theme = {
+    spacing: value => value ** 2,
+};
+
 const BlueRadio = withStyles({
     root: {
-        color: blue[400],
+        color: indigo[500],
         '&checked': {
-            color: blue[600],
+            color: indigo[500],
         },
     },
     checked :{},
@@ -87,15 +92,18 @@ const SignUp = (props) => {
     }, [formValues])
 
     return(
-        <div>
+        <Container component="main" maxWidth="m">
             <div className="formContainer">
                 <h2>Sign Up</h2>
                 <form className="form">
-                <FormControl>
+                <Grid>
                     <TextField 
                             id="filled-basic"
                             label="Create username" 
                             aria-describedby="create username input field"
+                            variant="outlined"
+                            fullWidth
+                            required
                             defaultValue="Create username"
                             type="text"
                             name="username"
@@ -104,29 +112,33 @@ const SignUp = (props) => {
                             error={formErrors.username ? true : false}
                             />
                         <FormHelperText id="my-helper-text">{formErrors.username ? <p className={classes.errorText}>{formErrors.username}</p> : "Must be at least 8 characters"}</FormHelperText>
-                    </FormControl>
 
-                    <FormControl className="formInputs">
+                    
                         {/* <InputLabel htmlFor="my-input"></InputLabel> */}
                         <TextField 
                             id="filled-basic"
                             label="Email Address" 
                             aria-describedby="email address input field"
                             defaultValue="Email address"
-
+                            variant="outlined"
+                            fullWidth
+                            required
                             type="email"
                             name="email"
                             value={formValues.email}
                             onChange={handleChange}
                             error={formErrors.email ? true : false} />
                         <FormHelperText id="my-helper-text">{formErrors.email ? <p className={classes.errorText}>{formErrors.email}</p> : "We'll never share your email"}</FormHelperText>
-                    </FormControl>
+                    
 
-                    <FormControl>
+                    
                     <TextField 
                             id="filled-basic"
                             label="Create password" 
                             aria-describedby="create password input field"
+                            variant="outlined"
+                            fullWidth
+                            required
                             defaultValue="Create password"
                             type="password"
                             name="password"
@@ -134,7 +146,7 @@ const SignUp = (props) => {
                             onChange={handleChange}
                             error={formErrors.password ? true : false} />
                         <FormHelperText id="my-helper-text">{formErrors.password ? <p className={classes.errorText}>{formErrors.password}</p> : "Must be at least 8 characters"}</FormHelperText>
-                    </FormControl>
+                    
 
                     <FormControl component="fieldset">
                     <FormLabel component="legend">Role</FormLabel>
@@ -154,10 +166,11 @@ const SignUp = (props) => {
                         </RadioGroup>
                     </FormControl>
                     <p className={classes.errorText}>{signUpError ? "Unable to sign up: Username or Email may already be taken" : ""}</p>
-                    <Button variant="contained" color="primary" disabled={disabled} onClick={onSubmit}>Sign Up</Button>
+                    <Button fullWidth variant="contained" color="primary" disabled={disabled} onClick={onSubmit}>Sign Up</Button>
+                    </Grid>
                 </form>
             </div>
-        </div>
+        </Container>
     )
 }
 
