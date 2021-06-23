@@ -21,7 +21,7 @@ const Classes = (props) => {
             <h2>Classes</h2>
             {isInstructor ? <button onClick={handleClick}>Create Class</button> : <div></div>}
             {
-                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item}/>)
+                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item} classList={classList} setClassList={setClassList}/>)
             }
         </div>
     )

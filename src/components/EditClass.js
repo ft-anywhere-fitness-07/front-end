@@ -69,6 +69,7 @@ export default function EditClass(props) {
     axiosWithAuth()
     .put(`/api/classes/${id}`, item)
     .then(res => {
+        console.log(res.data)
         // const editedItem = res.data
         // const itemIndex = classList.findIndex(item => item.classId === editedItem.classId)
         // const newList = [...classList]
