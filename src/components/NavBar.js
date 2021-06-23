@@ -65,7 +65,9 @@ function TabPanel(props) {
 
     const logout = () => {
       localStorage.removeItem("token");
+      localStorage.removeItem("role");
       setIsAuth(false);
+      setIsInstructor(false);
       push("/");
     }  
     const handleChange = (event, newValue) => {
@@ -79,7 +81,7 @@ function TabPanel(props) {
                 <Tab label="Home" {...a11yProps(0)} component={Link} to="/" className="navLink"/>
                 {isAuth ? <div></div> : <Tab label="Sign Up" {...a11yProps(1)} component={Link} to="/sign-up" className="navLink"/>}
                 {isAuth ? <div></div> : <Tab label="Sign In" {...a11yProps(2)} component={Link} to="/sign-in" className="navLink"/>}
-                <Tab label="Classes" {...a11yProps(3)} component={Link} to="/classes" className="navLink"/>
+                {isAuth ? <Tab label="Classes" {...a11yProps(3)} component={Link} to="/classes" className="navLink"/> : <div></div>}
                 {isAuth ? <Tab label="Logout" {...a11yProps(0)} component={Link} onClick={logout} to="/" className="navLink"/> : <div></div>}
             </Tabs>
             </AppBar>

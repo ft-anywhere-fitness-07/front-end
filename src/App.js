@@ -8,6 +8,8 @@ function App() {
   const [isInstructor, setIsInstructor] = useState(false);
   const [classList, setClassList] = useState([]);
 
+  console.log(isAuth)
+
   useEffect(() => {
     if(localStorage.getItem("token")){
       setIsAuth(true)
