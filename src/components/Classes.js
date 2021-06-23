@@ -5,6 +5,10 @@ import { useHistory } from 'react-router-dom';
 import CreateClass from './CreateClass';
 import ClassCard from './ClassCard'
 
+// Material-UI
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 const Classes = (props) => {
     const { isInstructor, classList, setClassList } = props;
@@ -17,13 +21,19 @@ const Classes = (props) => {
     }
 
     return (
-        <div>
-            <h2>Classes</h2>
-            {isInstructor ? <button onClick={handleClick}>Create Class</button> : <div></div>}
+        // <Container fixed>
+        <div style={{ padding: 20, marginBottom: 2  }} >
+            <div style={{ paddingLeft: 20 }} >
+            <h1>Classes</h1>
+            {isInstructor ? <Button variant='contained' color='primary' onClick={handleClick}>Create Class</Button> : <div></div>}
+            </div>
+           <Grid container spacing={2}>
             {
                 classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item}/>)
             }
-        </div>
+            </Grid>
+        </div >
+        // </Container>
     )
 }
 
