@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import axiosWithAuth from './../utils/axiosWithAuth';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2)
   }
 }));
-const initialValues = {
+
+const initialItem = {
   name: "",
   type: "",
   time: "",
@@ -39,31 +40,44 @@ const initialValues = {
 };
 
 
-export default function CreateClass(props) {
-  const { classList, setClassList } = props;
+export default function EditClass(props) {
+  const { isInstructor, classList, setClassList } = props;
   const classes = useStyles();
-  const [values, setValues] = useState(initialValues);
+  const [item, setItem] = useState(initialItem);
   const [location, setLocation] = useState("");
   const { push } = useHistory();
+  const { id } = useParams();
 
-  // useEffect(() => {
-  //   console.log(values);
-  // }, [values]);
+  useEffect(() => {
+      axiosWithAuth()
+      .get(`/api/classes/${id}`)
+      .then(res => {
+          setItem(res.data)
+      })
+      .catch(err => {
+          console.log(err)
+      })
+  }, [])
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+    setItem({ ...item, [name]: value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     axiosWithAuth()
-    .post("/api/classes", values)
+    .put(`/api/classes/${id}`, item)
     .then(res => {
+        // const editedItem = res.data
+        // const itemIndex = classList.findIndex(item => item.classId === editedItem.classId)
+        // const newList = [...classList]
+        // newList[itemIndex = {...newList[itemIndex], item: editedItem}]
       setClassList([
         ...classList,
         res.data
       ])
+        console.log(res)
       push("/classes")
     })
     .catch(err => {
@@ -85,7 +99,7 @@ export default function CreateClass(props) {
   getLocation();
 
   function locationSet() {
-    setValues({ ...values, location: location });
+    setItem({ ...item, location: location });
   }
 
   return (
@@ -96,7 +110,7 @@ export default function CreateClass(props) {
           <LockOutlinedIcon />
         </Avatar> */}
         <Typography component="h1" variant="h5">
-          Create Class
+          Edit Class
         </Typography>
         <form className={classes.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
@@ -109,7 +123,7 @@ export default function CreateClass(props) {
                 onChange={onChange}
                 id="name"
                 label="Name"
-                value={values.name}
+                value={item.name}
                 autoFocus
               />
             </Grid>
@@ -123,7 +137,7 @@ export default function CreateClass(props) {
                 type="type"
                 label="Type"
                 onChange={onChange}
-                value={values.type}
+                value={item.type}
               />
             </Grid>
             <Grid item xs={6} sm={6}>
@@ -136,7 +150,7 @@ export default function CreateClass(props) {
                 type="time"
                 label='Start Time'
                 onChange={onChange}
-                value={values.time}
+                value={item.time}
               />
             </Grid>
             <Grid item xs={6}>
@@ -149,7 +163,7 @@ export default function CreateClass(props) {
                 type="duration"
                 label="Duration"
                 onChange={onChange}
-                value={values.duration}
+                value={item.duration}
               />
             </Grid>
             <Grid item xs={6}>
@@ -162,7 +176,7 @@ export default function CreateClass(props) {
                 type="intensity"
                 label="Intensity Level"
                 onChange={onChange}
-                value={values.intensityLvl}
+                value={item.intensityLvl}
               />
             </Grid>
             <Grid item xs={6}>
@@ -175,7 +189,7 @@ export default function CreateClass(props) {
                 type="attendees"
                 label="Number of Attendees"
                 onChange={onChange}
-                value={values.attendees}
+                value={item.attendees}
               />
             </Grid>
             <Grid item xs={6}>
@@ -188,7 +202,7 @@ export default function CreateClass(props) {
                 type="size"
                 label="Maximum Class Size"
                 onChange={onChange}
-                value={values.maxSize}
+                value={item.maxSize}
               />
             </Grid>
             <Grid item xs={12}>
@@ -201,7 +215,7 @@ export default function CreateClass(props) {
                 type="address"
                 id="location"
                 onChange={onChange}
-                value={values.location}
+                value={item.location}
                 InputProps={{
                   endAdornment: (
                     <IconButton onClick={locationSet}>
@@ -219,7 +233,7 @@ export default function CreateClass(props) {
             color="primary"
             className={classes.submit}
           >
-            Create Class!
+            Edit Class
           </Button>
           <Grid container justify="flex-end">
           </Grid>
@@ -228,3 +242,4 @@ export default function CreateClass(props) {
     </Container>
   );
 }
+
