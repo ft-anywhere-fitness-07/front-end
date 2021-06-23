@@ -4,6 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+// import { createStore, applyMiddleWare } from 'redux';
+// import { Provider } from 'react-redux';
+
+// import thunk from 'redux-thunk';
+
+// const store = createStore(reducer, applymiddlware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>

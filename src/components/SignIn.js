@@ -23,7 +23,7 @@ const initialFormErrors = {
     password:""
 }
 
-const SignIn = () => {
+const SignIn = ({ isAuth, setIsAuth }) => {
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialFormErrors);
     const [disabled, setDisabled] = useState(true);
@@ -49,6 +49,7 @@ const SignIn = () => {
         .post("/api/auth/login", formValues)
         .then(res => {
             localStorage.setItem("token", res.data.token)
+            setIsAuth(true)
             push("/classes")
         })
         .catch(err => {
