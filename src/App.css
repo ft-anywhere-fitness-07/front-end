@@ -123,3 +123,15 @@ footer {
 .errorText {
   color: red;
 }
+
+.classesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.classList {
+  display: flex;
+  flex-wrap: wrap;
+}

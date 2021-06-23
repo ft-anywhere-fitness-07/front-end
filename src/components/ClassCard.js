@@ -13,7 +13,7 @@ import axiosWithAuth from './../utils/axiosWithAuth';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    maxWidth: 400,
+    maxWidth: 600,
     border: '1px solid gray',
     margin: '2em'
   },
