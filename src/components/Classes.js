@@ -9,13 +9,11 @@ import Button from '@material-ui/core/Button';
 import CreateClass from './CreateClass';
 import ClassCard from './ClassCard'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+
+// Material-UI
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 const Classes = (props) => {
     const { isInstructor, classList, setClassList } = props;
@@ -28,19 +26,19 @@ const Classes = (props) => {
     }
 
     return (
-        <div>
-            <div className="classesContainer">
-                <h2>Classes</h2>
-                <div className={classes.root}>
-                {isInstructor ? <Button variant="contained" color="primary" onClick={handleClick}>Create Class</Button> : <div></div>}
-                </div>
-                <div className="classList">
-                    {
-                        classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item} classList={classList} setClassList={setClassList}/>)
-                    }
-                </div>
+        // <Container fixed>
+        <div style={{ padding: 20, marginBottom: 2  }} >
+            <div style={{ paddingLeft: 20 }} >
+            <h1>Classes</h1>
+            {isInstructor ? <Button variant='contained' color='primary' onClick={handleClick}>Create Class</Button> : <div></div>}
             </div>
-        </div>
+           <Grid container spacing={2}>
+            {
+                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item}/>)
+            }
+            </Grid>
+        </div >
+        // </Container>
     )
 }
 
