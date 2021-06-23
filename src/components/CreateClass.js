@@ -9,6 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+import axiosWithAuth from './../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -29,19 +32,23 @@ const initialValues = {
   type: "",
   time: "",
   duration: "",
-  intensity: "",
-  size: "",
+  intensityLvl: "",
+  attendees:"",
+  maxSize: "",
   location: "",
 };
 
-export default function CreateClass() {
+
+export default function CreateClass(props) {
+  const { classList, setClassList } = props;
   const classes = useStyles();
   const [values, setValues] = useState(initialValues);
   const [location, setLocation] = useState("");
+  const { push } = useHistory();
 
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
+  // useEffect(() => {
+  //   console.log(values);
+  // }, [values]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +57,18 @@ export default function CreateClass() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    return;
+    axiosWithAuth()
+    .post("/api/classes", values)
+    .then(res => {
+      setClassList([
+        ...classList,
+        res.data
+      ])
+      push("/classes")
+    })
+    .catch(err => {
+      console.log(err)
+    })
   };
 
   function getLocation() {
@@ -82,7 +100,7 @@ export default function CreateClass() {
         </Typography>
         <form className={classes.form} onSubmit={onSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <TextField
                 name="name"
                 variant="outlined"
@@ -136,7 +154,7 @@ export default function CreateClass() {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                name="intensity"
+                name="intensityLvl"
                 variant="outlined"
                 required
                 fullWidth
@@ -144,12 +162,25 @@ export default function CreateClass() {
                 type="intensity"
                 label="Intensity Level"
                 onChange={onChange}
-                value={values.intensity}
+                value={values.intensityLvl}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
-                name="size"
+                name="attendees"
+                variant="outlined"
+                required
+                fullWidth
+                id="attendees"
+                type="attendees"
+                label="Number of Attendees"
+                onChange={onChange}
+                value={values.attendees}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                name="maxSize"
                 variant="outlined"
                 required
                 fullWidth
@@ -157,7 +188,7 @@ export default function CreateClass() {
                 type="size"
                 label="Maximum Class Size"
                 onChange={onChange}
-                value={values.size}
+                value={values.maxSize}
               />
             </Grid>
             <Grid item xs={12}>

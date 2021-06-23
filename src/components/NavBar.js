@@ -12,6 +12,7 @@ import SignIn from './SignIn';
 import PrivateRoute from './PrivateRoute';
 import Home from './Home';
 import CreateClass from './CreateClass';
+import Classes from './Classes';
 
 
 function TabPanel(props) {
@@ -56,11 +57,11 @@ function TabPanel(props) {
 
 
   const NavBar = (props) => {
-    const { isAuth, setIsAuth, isInstructor, setIsInstructor } = props;
+    const { isAuth, setIsAuth, isInstructor, setIsInstructor, classList, setClassList } = props;
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const { push } = useHistory();
-    
+
     const logout = () => {
       localStorage.removeItem("token");
       setIsAuth(false);
@@ -95,7 +96,12 @@ function TabPanel(props) {
                 <SignIn isAuth={isAuth} setIsAuth={setIsAuth} isInstructor={isInstructor} setIsInstructor={setIsInstructor}/>
             </Route>
 
-            <PrivateRoute exact path='/classes' component={CreateClass} isInstructor={isInstructor}>
+            <PrivateRoute exact path='/classes'> 
+                <Classes isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
+            </PrivateRoute>
+
+            <PrivateRoute exact path='/create-class'>
+                 <CreateClass isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
             </PrivateRoute>
             </Switch>
         </div>
