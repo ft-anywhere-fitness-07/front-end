@@ -70,15 +70,24 @@ export default function EditClass(props) {
     .put(`/api/classes/${id}`, item)
     .then(res => {
         console.log(res.data)
-        // const editedItem = res.data
-        // const itemIndex = classList.findIndex(item => item.classId === editedItem.classId)
-        // const newList = [...classList]
-        // newList[itemIndex = {...newList[itemIndex], item: editedItem}]
-      setClassList([
-        ...classList,
-        res.data
-      ])
-        console.log(res)
+        const editedItem = res.data
+        console.log(editedItem)
+        const itemIndex = classList.findIndex(item => item.classId === editedItem.classId)
+        const newList = [...classList]
+        newList[itemIndex] = {
+            ...newList[itemIndex],   
+            name: editedItem.name,
+            type: editedItem.type,
+            time: editedItem.time,
+            duration: editedItem.duration,
+            intensityLvl: editedItem.intensityLvl,
+            attendees:editedItem.attendees,
+            maxSize: editedItem.maxSize,
+            location: editedItem.location
+        }
+        setClassList(
+        newList
+      )
       push("/classes")
     })
     .catch(err => {
@@ -234,7 +243,7 @@ export default function EditClass(props) {
             color="primary"
             className={classes.submit}
           >
-            Edit Class
+            Save Edit
           </Button>
           <Grid container justify="flex-end">
           </Grid>
