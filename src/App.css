@@ -59,7 +59,7 @@
 
 .form {
   display: flex;
-  height: 45vh;
+  height: 55vh;
   flex-direction: column;
   justify-content: space-evenly;
   width: 80%;
