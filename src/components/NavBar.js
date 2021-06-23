@@ -10,10 +10,8 @@ import { AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core'
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import PrivateRoute from './PrivateRoute';
-import Classes from './Classes';
 import Home from './Home';
 import CreateClass from './CreateClass';
-import { SettingsInputAntennaTwoTone } from '@material-ui/icons';
 
 
 function TabPanel(props) {
@@ -58,7 +56,7 @@ function TabPanel(props) {
 
 
   const NavBar = (props) => {
-    const { isAuth, setIsAuth } = props;
+    const { isAuth, setIsAuth, isInstructor, setIsInstructor } = props;
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const { push } = useHistory();
@@ -90,14 +88,14 @@ function TabPanel(props) {
             </Route>
 
             <Route exact path='/sign-up'>
-                <SignUp isAuth={isAuth} setIsAuth={setIsAuth}/>
+                <SignUp isAuth={isAuth} setIsAuth={setIsAuth} isInstructor={isInstructor} setIsInstructor={setIsInstructor}/>
             </Route>
 
             <Route exact path='/sign-in'>
-                <SignIn isAuth={isAuth} setIsAuth={setIsAuth}/>
+                <SignIn isAuth={isAuth} setIsAuth={setIsAuth} isInstructor={isInstructor} setIsInstructor={setIsInstructor}/>
             </Route>
 
-            <PrivateRoute exact path='/classes' component={CreateClass}>
+            <PrivateRoute exact path='/classes' component={CreateClass} isInstructor={isInstructor}>
             </PrivateRoute>
             </Switch>
         </div>

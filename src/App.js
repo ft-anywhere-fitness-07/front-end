@@ -4,10 +4,11 @@ import NavBar from './components/NavBar';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false)
+  const [isInstructor, setIsInstructor] = useState(false);
 
   return (
     <div>
-      <NavBar isAuth={isAuth} setIsAuth={setIsAuth}/>
+      <NavBar isAuth={isAuth} setIsAuth={setIsAuth} isInstructor={isInstructor} setIsInstructor={setIsInstructor}/>
     </div>
   );
 }

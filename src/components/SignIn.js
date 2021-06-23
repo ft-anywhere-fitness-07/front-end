@@ -23,7 +23,8 @@ const initialFormErrors = {
     password:""
 }
 
-const SignIn = ({ isAuth, setIsAuth }) => {
+const SignIn = (props) => {
+    const { isAuth, setIsAuth, isInstructor, setIsInstructor } = props;
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialFormErrors);
     const [disabled, setDisabled] = useState(true);
@@ -44,12 +45,15 @@ const SignIn = ({ isAuth, setIsAuth }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("submit")
         axiosWithAuth()
         .post("/api/auth/login", formValues)
         .then(res => {
             localStorage.setItem("token", res.data.token)
             setIsAuth(true)
+            const role = res.data.user.role
+            if(role === "instructor"){
+                setIsInstructor(true)
+            }
             push("/classes")
         })
         .catch(err => {
