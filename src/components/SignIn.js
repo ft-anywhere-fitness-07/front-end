@@ -4,6 +4,7 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 import * as yup from 'yup';
 import schema from './../validation/signInFormSchema';
 
@@ -53,6 +54,7 @@ const SignIn = (props) => {
             const role = res.data.user.role
             if(role === "instructor"){
                 setIsInstructor(true)
+                localStorage.setItem("role", role)
             }
             push("/classes")
         })
@@ -62,8 +64,6 @@ const SignIn = (props) => {
             setFormValues(initialFormValues)
         })
     }
-
-    console.log(isInstructor)
 
     const validate = (name, value) => {
         yup.reach(schema, name)

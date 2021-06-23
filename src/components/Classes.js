@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+// Material UI
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 // components
 import CreateClass from './CreateClass';
 import ClassCard from './ClassCard'
+
 
 // Material-UI
 import Button from "@material-ui/core/Button";
@@ -12,7 +17,7 @@ import Container from "@material-ui/core/Container";
 
 const Classes = (props) => {
     const { isInstructor, classList, setClassList } = props;
-    console.log(classList)
+    const classes = useStyles();
 
     const { push } = useHistory();
 
