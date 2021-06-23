@@ -89,12 +89,8 @@ export default function CreateClass(props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
+    <Container component="main" maxWidth="m">
+      <div className='formContainer' >
         <Typography component="h1" variant="h5">
           Create Class
         </Typography>

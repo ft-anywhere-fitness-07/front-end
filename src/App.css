@@ -46,27 +46,28 @@
 
 .formContainer{
   border: 1px solid gray;
+  border-radius: 1%;
   box-shadow: 0px 0px 1px 1px gray;
-  width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10em auto;
+  padding: 2%;
+  margin: 6em auto;
+  width: 40%;
 }
 
 .form {
   display: flex;
   height: 45vh;
   flex-direction: column;
-  justify-content: space-around;
-  width: 50%;
+  justify-content: space-evenly;
+  width: 80%;
 }
 
 .formInputs{
   display: flex;
   flex-direction: column;
-
 }
 
 .navLink{

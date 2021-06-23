@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, FormHelperText, Button, TextField } from '@material-ui/core';
+import { FormControl, FormHelperText, Button, TextField, CssBaseline, Grid, Container } from '@material-ui/core';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import * as yup from 'yup';
 import schema from './../validation/signInFormSchema';
+import { green, red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
     errorText: {
@@ -77,15 +78,19 @@ const SignIn = (props) => {
     }, [formValues])
  
     return(
-        <div>
-            <div className="formContainer">
+        <Container component="main" maxWidth="m">
+            <div className="formContainer" style={{ borderRadius: 5 }} >
                 <h2>Sign In</h2>
                 <form className="form">
                     <FormControl className="formInputs">
                         {/* <InputLabel htmlFor="my-input"></InputLabel> */}
+                        <Grid item xs={12}>
                         <TextField 
                             id="filled-basic"
                             label="Username" 
+                            variant="outlined"
+                            fullWidth
+                            required
                             aria-describedby="username input field"
                             defaultValue="Username"
                             type="text"
@@ -93,12 +98,17 @@ const SignIn = (props) => {
                             value={formValues.username}
                             onChange={onChange} />
                         <FormHelperText className={classes.errorText} id="my-helper-text">{formErrors.username ? `${formErrors.username}` : ""}</FormHelperText>
+                        </Grid>
                     </FormControl>
 
                     <FormControl>
+                    <Grid item xs={12}>
                     <TextField 
                             id="filled-basic"
                             label="Password" 
+                            variant="outlined"
+                            fullWidth
+                            required
                             aria-describedby="Password input field"
                             defaultValue="Password"
                             type="password"
@@ -106,12 +116,15 @@ const SignIn = (props) => {
                             value={formValues.password}
                             onChange={onChange} />
                         <FormHelperText className={classes.errorText}  id="my-helper-text">{formErrors.password ? `${formErrors.password}` : ""}</FormHelperText>
+                        </Grid>
                     </FormControl>
                     <p className={classes.errorText}>{signInError ? "Unable to sign in" : ""}</p>
-                    <Button variant="contained" disabled={disabled} color="primary" onClick={onSubmit}>Sign In</Button>
+                    <Grid>
+                    <Button fullWidth variant="contained" disabled={disabled} color="primary" onClick={onSubmit}>Sign In</Button>
+                    </Grid>
                 </form>
             </div>
-        </div>
+        </Container>
     )
 }
 
