@@ -54,6 +54,7 @@ const SignIn = (props) => {
             const role = res.data.user.role
             if(role === "instructor"){
                 setIsInstructor(true)
+                localStorage.setItem("role", role)
             }
             push("/classes")
         })
