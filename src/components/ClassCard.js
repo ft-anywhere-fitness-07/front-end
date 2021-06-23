@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -29,8 +30,13 @@ const useStyles = makeStyles({
 
 export default function ClassCard(props) {
   const { isInstructor, item } = props;
+  const { push } = useHistory();
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+
+  const handleEdit = () => {
+    push(`/edit-class/${item.classId}`);
+  }
 
   return (
     <Card className={classes.root}>
@@ -59,7 +65,13 @@ export default function ClassCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Register</Button>
+        {isInstructor ? 
+        <div>
+          <Button size="small" onClick={handleEdit}>Edit</Button>
+          <Button size="small">Delete</Button>
+        </div>
+        : <Button size="small">Register</Button>
+        }
       </CardActions>
     </Card>
   );

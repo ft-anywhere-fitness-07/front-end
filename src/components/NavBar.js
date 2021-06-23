@@ -13,6 +13,7 @@ import PrivateRoute from './PrivateRoute';
 import Home from './Home';
 import CreateClass from './CreateClass';
 import Classes from './Classes';
+import EditClass from './EditClass';
 
 
 function TabPanel(props) {
@@ -102,6 +103,10 @@ function TabPanel(props) {
 
             <PrivateRoute exact path='/create-class'>
                  <CreateClass isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
+            </PrivateRoute>
+
+            <PrivateRoute exact path='/edit-class/:id'>
+                 <EditClass isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
             </PrivateRoute>
             </Switch>
         </div>

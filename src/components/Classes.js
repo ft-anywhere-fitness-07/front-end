@@ -19,9 +19,9 @@ const Classes = (props) => {
     return (
         <div>
             <h2>Classes</h2>
-            <button onClick={handleClick}>Create Class</button>
+            {isInstructor ? <button onClick={handleClick}>Create Class</button> : <div></div>}
             {
-                classList.map(item => <ClassCard isInstructor={isInstructor} item={item}/>)
+                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item}/>)
             }
         </div>
     )

@@ -37,7 +37,8 @@ const initialErrorValues = {
     role:""
 }
 
-const SignUp = ({ isAuth, setIsAuth }) => {
+const SignUp = (props) => {
+    const { isAuth, setIsAuth, isInstructor, setIsInstructor } = props;
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialErrorValues);
     const [disabled, setDisabled] = useState(true);
@@ -62,6 +63,10 @@ const SignUp = ({ isAuth, setIsAuth }) => {
         .then(res=> {
             localStorage.setItem("token", res.data.token)
             setIsAuth(true)
+            const role = res.data.user.role
+            if(role === "instructor"){
+                setIsInstructor(true)
+            }
             push("/classes")
         })
         .catch(err => {

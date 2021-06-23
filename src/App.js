@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 
 const initialClasses = [
   {
+    classId: 0,
     name: "Stand Up PaddleBoard Yoga",
     type: "Yoga",
     time: "8:00",
@@ -14,6 +15,7 @@ const initialClasses = [
     location: "Loveland, CO",
   },
   {
+    classId: 1,
     name: "Long Run",
     type: "Running",
     time: "7:00",
@@ -29,7 +31,7 @@ function App() {
   const [isAuth, setIsAuth] = useState(false)
   const [isInstructor, setIsInstructor] = useState(false);
   const [classList, setClassList] = useState(initialClasses);
-
+  console.log(isInstructor)
 
   return (
     <div>

@@ -63,6 +63,8 @@ const SignIn = (props) => {
         })
     }
 
+    console.log(isInstructor)
+
     const validate = (name, value) => {
         yup.reach(schema, name)
         .validate(value)
