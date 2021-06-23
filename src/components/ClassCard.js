@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 
 export default function ClassCard(props) {
   const { isInstructor, item, classList, setClassList } = props;
+  const [isRegistered, setIsRegistered] = useState(false);
   const { push } = useHistory();
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -48,6 +49,30 @@ export default function ClassCard(props) {
       const deletedClass = res.data.removed
       const newClassList = classList.filter(item => item.classId !== deletedClass.classId)
       setClassList(newClassList)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const handleRegister = () => {
+    axiosWithAuth()
+    .post(`/api/users/enrollment`, item.classId)
+    .then(res => {
+      if(res.statusText === "OK"){
+        setIsRegistered(true)
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const handleDeregister = () => {
+    axiosWithAuth()
+    .delete(`/api/users/enrollment/${item.classId}`)
+    .then(res => {
+      setIsRegistered(false)
     })
     .catch(err => {
       console.log(err)
@@ -86,7 +111,9 @@ export default function ClassCard(props) {
           <Button size="small" onClick={handleEdit}>Edit</Button>
           <Button size="small" onClick={handleDelete}>Delete</Button>
         </div>
-        : <Button size="small">Register</Button>
+        : isRegistered ? 
+        <Button size="small" onClick={handleDeregister}>Deregister</Button>
+        : <Button size="small" onClick={handleRegister}>Register</Button>
         }
       </CardActions>
     </Card>
