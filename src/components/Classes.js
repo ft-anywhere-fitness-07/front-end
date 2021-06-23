@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-// Material UI
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
 // components
 import CreateClass from './CreateClass';
 import ClassCard from './ClassCard'
 
 
 // Material-UI
+import { makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  }));
 
 const Classes = (props) => {
     const { isInstructor, classList, setClassList } = props;
