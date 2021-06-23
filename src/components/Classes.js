@@ -31,10 +31,10 @@ const Classes = (props) => {
     }
 
     return (
-        // <Container fixed>
-        <div style={{ padding: 20, marginBottom: 2  }} >
-            <div style={{ paddingLeft: 20 }} >
-            <h1>Classes</h1>
+        <Container>
+        <div style={{ paddingLeft:80, display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center' }} >
+            <div>
+            <h1 style={{ marginRight:80 }}>Classes</h1>
             {isInstructor ? <Button variant='contained' color='primary' onClick={handleClick}>Create Class</Button> : <div></div>}
             </div>
            <Grid container spacing={2}>
@@ -43,7 +43,7 @@ const Classes = (props) => {
             }
             </Grid>
         </div >
-        // </Container>
+        </Container>
     )
 }
 
