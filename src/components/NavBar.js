@@ -99,11 +99,11 @@ function TabPanel(props) {
                 <SignIn isAuth={isAuth} setIsAuth={setIsAuth} isInstructor={isInstructor} setIsInstructor={setIsInstructor}/>
             </Route>
 
-            <PrivateRoute exact path='/classes'> 
+            <PrivateRoute exact path='/classes' > 
                 <Classes isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
             </PrivateRoute>
 
-            <PrivateRoute exact path='/create-class'>
+            <PrivateRoute exact path='/create-class' >
                  <CreateClass isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
             </PrivateRoute>
 
