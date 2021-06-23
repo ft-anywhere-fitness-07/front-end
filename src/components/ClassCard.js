@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 export default function ClassCard(props) {
   const { isInstructor, item, classList, setClassList } = props;
   const [isRegistered, setIsRegistered] = useState(false);
+  const [isFull, setIsFull] = useState(false);
   const { push } = useHistory();
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -40,6 +41,14 @@ export default function ClassCard(props) {
   const handleEdit = () => {
     push(`/edit-class/${item.classId}`);
   }
+
+  useEffect(() => {
+    if(item.attendees >= item.maxSize) {
+      setIsFull(true)
+    }
+  },[])
+
+  console.log(isFull)
 
   const handleDelete = () => {
     axiosWithAuth()
@@ -113,6 +122,8 @@ export default function ClassCard(props) {
         </div>
         : isRegistered ? 
         <Button size="small" onClick={handleDeregister}>Deregister</Button>
+        : isFull ? 
+        <Button size="small">Class Is Full</Button>
         : <Button size="small" onClick={handleRegister}>Register</Button>
         }
       </CardActions>
