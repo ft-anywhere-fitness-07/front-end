@@ -30,14 +30,11 @@ const Classes = (props) => {
     const { push } = useHistory();
 
     useEffect(() => {
-      if(classList.length >= 2 ){
-        setIsVisible(false)
-      }
-      // props.fetchClasses()
-
+      // if(classList.length >= 2 ){
+      //   setIsVisible(false)
+      // }
+      props.fetchClasses()
     }, [])
-
-  
 
     const handleClick = () => {
         push("/create-class");
@@ -53,7 +50,7 @@ const Classes = (props) => {
             <div>
               <h1 style={{ marginRight:80 }}>Classes</h1>
               {isInstructor ? <Button variant='contained' color='primary' onClick={handleClick}>Create Class</Button> : <div></div>}
-              {isVisible ? <Button variant='contained' color='primary' onClick={handleFetch}>Fetch All Classes</Button> : <div></div>}
+              {/* {isVisible ? <Button variant='contained' color='primary' onClick={handleFetch}>Fetch All Classes</Button> : <div></div>} */}
             </div>
             <Search />
            <Grid container spacing={2}>

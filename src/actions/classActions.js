@@ -48,7 +48,7 @@ export const fetchClassesFail = (error) => {
 // CREATE
 export const createClass = (newClass) => {
     return (dispatch) => {
-        dispatch(createClassStart(newClass));
+        dispatch(createClassStart());
 
         axiosWithAuth()
         .post("/api/classes", newClass)
@@ -61,8 +61,8 @@ export const createClass = (newClass) => {
     }
 }
 
-export const createClassStart = (newClass) => {
-    return({type:CREATE_CLASS_START, payload:newClass});
+export const createClassStart = () => {
+    return({type:CREATE_CLASS_START});
 }
 export const createClassSuccess = (createdClass) => {
     return({type:CREATE_CLASS_SUCCESS, payload:createdClass})
