@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio, Container, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signUp } from './../actions/signUpActions';
+
+// form validation
 import schema from '../validation/signUpFormSchema';
 import * as yup from 'yup';
+
+// Material UI
+import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio, Container, Grid } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import { spacing } from '@material-ui/system';
-import { connect } from 'react-redux';
-import { signUp } from './../actions/signUpActions';
 
 const useStyles = makeStyles({
     errorText: {
@@ -96,7 +100,7 @@ const SignUp = (props) => {
                 <form className="form">
                 <Grid>
                     <Grid>
-                    <TextField 
+                        <TextField 
                             id="filled-basic"
                             label="Create username" 
                             aria-describedby="create username input field"
@@ -109,11 +113,11 @@ const SignUp = (props) => {
                             value={formValues.username}
                             onChange={handleChange}
                             error={formErrors.username ? true : false}
-                            />
+                        />
                         <FormHelperText id="my-helper-text">{formErrors.username ? <p className={classes.errorText}>{formErrors.username}</p> : "Must be at least 8 characters"}</FormHelperText>
-                        </Grid>
-                        <Grid>
-                        {/* <InputLabel htmlFor="my-input"></InputLabel> */}
+                    </Grid>
+
+                    <Grid>
                         <TextField 
                             id="filled-basic"
                             label="Email Address" 
@@ -128,27 +132,26 @@ const SignUp = (props) => {
                             onChange={handleChange}
                             error={formErrors.email ? true : false} />
                         <FormHelperText id="my-helper-text">{formErrors.email ? <p className={classes.errorText}>{formErrors.email}</p> : "We'll never share your email"}</FormHelperText>
-                        </Grid>
+                    </Grid>
 
-                    
                     <TextField 
-                            id="filled-basic"
-                            label="Create password" 
-                            aria-describedby="create password input field"
-                            variant="outlined"
-                            fullWidth
-                            required
-                            defaultValue="Create password"
-                            type="password"
-                            name="password"
-                            value={formValues.password}
-                            onChange={handleChange}
-                            error={formErrors.password ? true : false} />
-                        <FormHelperText id="my-helper-text">{formErrors.password ? <p className={classes.errorText}>{formErrors.password}</p> : "Must be at least 8 characters"}</FormHelperText>
-                    
+                        id="filled-basic"
+                        label="Create password" 
+                        aria-describedby="create password input field"
+                        variant="outlined"
+                        fullWidth
+                        required
+                        defaultValue="Create password"
+                        type="password"
+                        name="password"
+                        value={formValues.password}
+                        onChange={handleChange}
+                        error={formErrors.password ? true : false} 
+                    />
+                    <FormHelperText id="my-helper-text">{formErrors.password ? <p className={classes.errorText}>{formErrors.password}</p> : "Must be at least 8 characters"}</FormHelperText>
 
                     <FormControl component="fieldset">
-                    <FormLabel component="legend">Role</FormLabel>
+                        <FormLabel component="legend">Role</FormLabel>
                         <RadioGroup aria-label="role" value={formValues.role} name="role" onChange={handleChange}>
                             <FormControlLabel 
                                 name="role" 
@@ -164,9 +167,11 @@ const SignUp = (props) => {
                                 inputProps={{ 'aria-label': 'instructor'}} />
                         </RadioGroup>
                     </FormControl>
+
                     <p className={classes.errorText}>{signUpError ? "Unable to sign up: Username or Email may already be taken" : ""}</p>
+
                     <Button fullWidth variant="contained" color="primary" disabled={disabled} onClick={onSubmit}>Sign Up</Button>
-                    </Grid>
+                </Grid>
                 </form>
             </div>
         </Container>
@@ -180,6 +185,5 @@ const mapStateToProps = (state) => {
         isAuth: state.login.isAuth
     }
 }
-
 
 export default connect(mapStateToProps, { signUp })(SignUp);
