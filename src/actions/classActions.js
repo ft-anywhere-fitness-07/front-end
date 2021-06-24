@@ -18,66 +18,7 @@ export const DELETE_CLASS_FAIL = "DELETE_CLASS_FAIL";
 
 export const SEARCH = "SEARCH";
 
-export const search = (filteredClasses) => {
-    return({type:SEARCH, payload:filteredClasses})
-}
-
-
-export const deleteClassStart = () => {
-    return({type:DELETE_CLASS_START})
-}
-
-export const deleteClassSuccess = (deletedClass) => {
-    return({type:DELETE_CLASS_SUCCESS, payload:deletedClass})
-}
-
-export const deleteClassFail = (error) => {
-    return({type:DELETE_CLASS_FAIL, payload:error})
-}
-
-export const deleteClass = (id) => {
-    return(dispatch) => {
-        dispatch(deleteClassStart())
-
-        axiosWithAuth()
-        .delete(`/api/classes/${id}`)
-        .then(res => {
-            dispatch(deleteClassSuccess(res.data.removed))
-        })
-        .catch(err => {
-            dispatch(deleteClassFail(err))
-        })
-    }
-}
-
-export const editClassStart = () => {
-    return({type:EDIT_CLASS_START})
-}
-
-export const editClassSuccess = (classes) => {
-    return({type:EDIT_CLASS_SUCCESS, payload:classes})
-}
-
-export const editClassFail = (error) => {
-    return({type:EDIT_CLASS_FAIL, payload:error})
-}
-
-export const editClass = (classEdits, id) => {
-    return(dispatch) => {
-        dispatch(editClassStart())
-
-        axiosWithAuth()
-        .put(`/api/classes/${id}`, classEdits)
-        .then(res => {
-            dispatch(editClassSuccess(res.data))
-        })
-        .catch(err => {
-            dispatch(editClassFail(err))
-        })
-    }
-}
-
-
+// FETCH
 export const fetchClasses = () => {
     return(dispatch) => {
         dispatch(fetchClassesStart())
@@ -96,16 +37,15 @@ export const fetchClasses = () => {
 export const fetchClassesStart = () => {
     return({type:FETCH_CLASSES_START})
 }
-
 export const fetchClassesSuccess = (classes) => {
     return({type:FETCH_CLASSES_SUCCESS, payload:classes})
 }
-
 export const fetchClassesFail = (error) => {
     return({type:FETCH_CLASSES_FAIL, payload:error})
 }
 
 
+// CREATE
 export const createClass = (newClass) => {
     return (dispatch) => {
         dispatch(createClassStart(newClass));
@@ -124,11 +64,70 @@ export const createClass = (newClass) => {
 export const createClassStart = (newClass) => {
     return({type:CREATE_CLASS_START, payload:newClass});
 }
-
 export const createClassSuccess = (createdClass) => {
     return({type:CREATE_CLASS_SUCCESS, payload:createdClass})
 }
-
 export const createClassFail = (error) => {
     return({type:CREATE_CLASS_FAIL, payload:error})
+}
+
+
+
+// EDIT
+export const editClass = (classEdits, id) => {
+    return(dispatch) => {
+        dispatch(editClassStart())
+
+        axiosWithAuth()
+        .put(`/api/classes/${id}`, classEdits)
+        .then(res => {
+            dispatch(editClassSuccess(res.data))
+        })
+        .catch(err => {
+            dispatch(editClassFail(err))
+        })
+    }
+}
+
+export const editClassStart = () => {
+    return({type:EDIT_CLASS_START})
+}
+export const editClassSuccess = (classes) => {
+    return({type:EDIT_CLASS_SUCCESS, payload:classes})
+}
+export const editClassFail = (error) => {
+    return({type:EDIT_CLASS_FAIL, payload:error})
+}
+
+
+// DELETE
+export const deleteClass = (id) => {
+    return(dispatch) => {
+        dispatch(deleteClassStart())
+
+        axiosWithAuth()
+        .delete(`/api/classes/${id}`)
+        .then(res => {
+            dispatch(deleteClassSuccess(res.data.removed))
+        })
+        .catch(err => {
+            dispatch(deleteClassFail(err))
+        })
+    }
+}
+
+export const deleteClassStart = () => {
+    return({type:DELETE_CLASS_START})
+}
+export const deleteClassSuccess = (deletedClass) => {
+    return({type:DELETE_CLASS_SUCCESS, payload:deletedClass})
+}
+export const deleteClassFail = (error) => {
+    return({type:DELETE_CLASS_FAIL, payload:error})
+}
+
+
+// SEARCH
+export const search = (filteredClasses) => {
+    return({type:SEARCH, payload:filteredClasses})
 }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, FormHelperText, Button, TextField, Grid, Container } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { login } from './../actions/loginActions';
 
-
+// form validation
 import * as yup from 'yup';
 import schema from './../validation/signInFormSchema';
+
+// Material UI
+import { FormControl, FormHelperText, Button, TextField, Grid, Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     errorText: {
@@ -115,9 +117,11 @@ const SignIn = (props) => {
                         <FormHelperText className={classes.errorText}  id="my-helper-text">{formErrors.password ? `${formErrors.password}` : ""}</FormHelperText>
                         </Grid>
                     </FormControl>
+
                     <p className={classes.errorText}>{signInError ? "Unable to sign in" : ""}</p>
+                    
                     <Grid>
-                    <Button fullWidth variant="contained" disabled={disabled} color="primary" onClick={onSubmit}>Sign In</Button>
+                        <Button fullWidth variant="contained" disabled={disabled} color="primary" onClick={onSubmit}>Sign In</Button>
                     </Grid>
                 </form>
             </div>

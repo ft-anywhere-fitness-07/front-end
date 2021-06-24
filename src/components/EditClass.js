@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import axiosWithAuth from './../utils/axiosWithAuth';
+import { useHistory, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { editClass } from './../actions/classActions';
+
+// Material UI
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -8,12 +14,6 @@ import { IconButton } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
-import axiosWithAuth from './../utils/axiosWithAuth';
-import { useHistory, useParams } from 'react-router-dom';
-
-import { connect } from 'react-redux';
-import { editClass } from './../actions/classActions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
