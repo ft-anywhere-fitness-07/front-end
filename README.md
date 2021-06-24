@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+AnywhereFitness frontend repo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Getting Started
+    - clone repo
+    - cd into 'front-end' directory
+    - run 'npm install'
+    - run 'npm start'
 
-## Available Scripts
+### Contributing
+    - Clone down our 'front-end' repo WITHOUT FORKING.
+    - Point your terminal to your local frontend folder.
+    - Checkout a new branch. (Branches should be made for each new feature/subject you're working on. EX: git checkout -b navbar - for working on the Navbar component)
+    - Once you've finished your feature or section, (Remembering to make commits along the way.) push your branch up to Github. (EX: git push origin -u navbar)
+    - Make your pull request - a team member will approve it.
+    - In your terminal, checkout the main branch again. (git checkout main)
+    - Delete your local copy of your old branch. (EX: git branch -d navbar)
+    - REMEMBER: Pull down any new changes on the remote repo BEFORE starting work on a new feature/component. This takes two commands: (git fetch --all) & (git pull origin main)
+    - Checkout a new branch and start work on your new feature
 
-In the project directory, you can run:
 
-### `npm start`
+### App Description
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+These days, fitness classes can be held anywhere- a park, an unfinished basement or a garage- not just at a traditional gym. Certified fitness instructors need an easy way to take the awkwardness out of attendance taking and client payment processing. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+While you could use several mobile apps to accomplish this, **AnywhereFitness** is the all-in-one solution to meet your “on-location” fitness class needs. AnywhereFitness makes it painless for Instructors and Clients alike to hold and attend Fitness classes wherever they might be held. 
 
-### `npm test`
+Instructors can take attendance, request and process payments, create virtual “punch passes” for each type of class offered, alert clients of cancellations or location changes and so much more. Clients can easily find out information on classes - location, class size, start time and duration, as well as reschedule or cancel an upcoming appointment or reservation right from the mobile app.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+1. User can create/register as a `client` and login with the registered credentials.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. User can create/register as an `instructor` by entering an additional Auth Code during signup, and can login with the registered credentials.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. `client` and `instructor` are both presented with the appropriate on-boarding walkthrough on first sign-in, with an option to skip it.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Authenticated `Instructor` can create update and delete a `class`. At a minimum, each `class` must have the following properties:
 
-### `npm run eject`
+- `Name`
+- `Type`
+- `Start time`
+- `Duration`
+- `Intensity level`
+- `Location`
+- `Current number of registered attendees`
+- `Max class size`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+5. Authenticated `client` can search for available classes. At a minimum, they must be able to search by the following criteria:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `class time`
+- `class date`
+- `class duration`
+- `class type`
+- `intensity level`
+- `class location`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+6. Authenticated `instructor` can create virtual punch pass categories for each type of group fitness class they offer (yoga, insanity, RIPPED, pilates, etc.)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+7. Authenticated `user` can reserve a spot in a `class` with available seats open, and can reschedule or cancel their current `reservation` from the mobile app.
