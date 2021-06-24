@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Route, Switch, useHistory } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { logout } from './../actions/loginActions';
 
 // Material UI
 import PropTypes from 'prop-types';
@@ -58,7 +60,7 @@ function TabPanel(props) {
 
 
   const NavBar = (props) => {
-    const { isAuth, setIsAuth, isInstructor, setIsInstructor, classList, setClassList } = props;
+    const { isAuth } = props;
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const { push } = useHistory();
@@ -66,8 +68,7 @@ function TabPanel(props) {
     const logout = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("role");
-      setIsAuth(false);
-      setIsInstructor(false);
+      props.logout();
       push("/");
     }  
     const handleChange = (event, newValue) => {
@@ -92,27 +93,33 @@ function TabPanel(props) {
             </Route>
 
             <Route exact path='/sign-up'>
-                <SignUp isAuth={isAuth} setIsAuth={setIsAuth} isInstructor={isInstructor} setIsInstructor={setIsInstructor}/>
+                <SignUp />
             </Route>
 
             <Route exact path='/sign-in'>
-                <SignIn isAuth={isAuth} setIsAuth={setIsAuth} isInstructor={isInstructor} setIsInstructor={setIsInstructor}/>
+                <SignIn />
             </Route>
 
             <PrivateRoute exact path='/classes' > 
-                <Classes isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
+                <Classes />
             </PrivateRoute>
 
             <PrivateRoute exact path='/create-class' >
-                 <CreateClass isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
+                 <CreateClass />
             </PrivateRoute>
 
             <PrivateRoute exact path='/edit-class/:id'>
-                 <EditClass isInstructor={isInstructor} classList={classList} setClassList={setClassList} />
+                 <EditClass />
             </PrivateRoute>
             </Switch>
         </div>
       )
   }
 
-  export default NavBar;
+  const mapStateToProps = (state) => {
+    return{
+      isAuth: state.login.isAuth
+    }
+  }
+
+  export default connect(mapStateToProps, { logout })(NavBar);

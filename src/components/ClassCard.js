@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import axiosWithAuth from './../utils/axiosWithAuth';
+import { connect } from 'react-redux';
+import { deleteClass } from './../actions/classActions';
 
 const useStyles = makeStyles({
   root: {
@@ -30,13 +32,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ClassCard(props) {
-  const { isInstructor, item, classList, setClassList } = props;
+const ClassCard = (props) => {
+  const { isInstructor, item } = props;
   const [isRegistered, setIsRegistered] = useState(false);
   const [isFull, setIsFull] = useState(false);
   const { push } = useHistory();
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   const handleEdit = () => {
     push(`/edit-class/${item.classId}`);
@@ -48,20 +49,8 @@ export default function ClassCard(props) {
     }
   },[])
 
-  console.log(isFull)
-
   const handleDelete = () => {
-    axiosWithAuth()
-    .delete(`/api/classes/${item.classId}`)
-    .then(res => {
-      console.log(res.data.removed)
-      const deletedClass = res.data.removed
-      const newClassList = classList.filter(item => item.classId !== deletedClass.classId)
-      setClassList(newClassList)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    props.dispatch(deleteClass(item.classId))
   }
 
   const handleRegister = () => {
@@ -130,3 +119,5 @@ export default function ClassCard(props) {
     </Card>
   );
 }
+
+export default connect()(ClassCard)

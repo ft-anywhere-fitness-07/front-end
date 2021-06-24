@@ -12,6 +12,9 @@ import Container from "@material-ui/core/Container";
 import axiosWithAuth from './../utils/axiosWithAuth';
 import { useHistory, useParams } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { editClass } from './../actions/classActions';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -40,8 +43,7 @@ const initialItem = {
 };
 
 
-export default function EditClass(props) {
-  const { isInstructor, classList, setClassList } = props;
+const EditClass = (props) => {
   const classes = useStyles();
   const [item, setItem] = useState(initialItem);
   const [location, setLocation] = useState("");
@@ -66,33 +68,8 @@ export default function EditClass(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axiosWithAuth()
-    .put(`/api/classes/${id}`, item)
-    .then(res => {
-        console.log(res.data)
-        const editedItem = res.data
-        console.log(editedItem)
-        const itemIndex = classList.findIndex(item => item.classId === editedItem.classId)
-        const newList = [...classList]
-        newList[itemIndex] = {
-            ...newList[itemIndex],   
-            name: editedItem.name,
-            type: editedItem.type,
-            time: editedItem.time,
-            duration: editedItem.duration,
-            intensityLvl: editedItem.intensityLvl,
-            attendees:editedItem.attendees,
-            maxSize: editedItem.maxSize,
-            location: editedItem.location
-        }
-        setClassList(
-        newList
-      )
-      push("/classes")
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    props.editClass(item, id);
+    push('/classes');
   };
 
   function getLocation() {
@@ -116,9 +93,6 @@ export default function EditClass(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
         <Typography component="h1" variant="h5">
           Edit Class
         </Typography>
@@ -252,4 +226,14 @@ export default function EditClass(props) {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  return({
+    isLoading: state.classes.isLoading,
+    error: state.classes.error,
+    classList: state.classes.classList
+  })
+}
+
+export default connect(mapStateToProps, { editClass })(EditClass);
 

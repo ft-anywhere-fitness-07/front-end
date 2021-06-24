@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio, Container, Grid, Box } from '@material-ui/core';
-import axios from 'axios';
+import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio, Container, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import schema from '../validation/signUpFormSchema';
 import * as yup from 'yup';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import { spacing } from '@material-ui/system';
+import { connect } from 'react-redux';
+import { signUp } from './../actions/signUpActions';
 
 const useStyles = makeStyles({
     errorText: {
@@ -43,7 +44,7 @@ const initialErrorValues = {
 }
 
 const SignUp = (props) => {
-    const { isAuth, setIsAuth, isInstructor, setIsInstructor } = props;
+    const { isLoading, error, isAuth } = props;
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialErrorValues);
     const [disabled, setDisabled] = useState(true);
@@ -51,6 +52,14 @@ const SignUp = (props) => {
     const { push } = useHistory();
 
     const classes = useStyles();
+
+    useEffect(() => {
+        schema.isValid(formValues).then(valid => setDisabled(!valid))
+    }, [formValues])
+
+    if (isLoading) {
+        return <h1>Loading...</h1>
+    }
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -64,20 +73,13 @@ const SignUp = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axios.post("https://anywhere-fitness-back-end.herokuapp.com/api/auth/register", formValues)
-        .then(res=> {
-            localStorage.setItem("token", res.data.token)
-            setIsAuth(true)
-            const role = res.data.user.role
-            if(role === "instructor"){
-                setIsInstructor(true)
-            }
+        props.signUp(formValues)
+        if(isAuth === true){
             push("/classes")
-        })
-        .catch(err => {
-            console.log(err)
-            setSignUpError(err)
-        })
+        }
+        else if(error) {
+            setSignUpError(error)
+        }
     }
 
     const validate = (name, value) => {
@@ -86,10 +88,6 @@ const SignUp = (props) => {
             .then(() => setFormErrors({...formErrors, [name]:""}))
             .catch(err => setFormErrors({...formErrors, [name]:err.errors[0]}))
     }
-
-    useEffect(() => {
-        schema.isValid(formValues).then(valid => setDisabled(!valid))
-    }, [formValues])
 
     return(
         <Container component="main" maxWidth="m">
@@ -175,4 +173,13 @@ const SignUp = (props) => {
     )
 }
 
-export default SignUp;
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.login.isLoading,
+        error: state.login.error,
+        isAuth: state.login.isAuth
+    }
+}
+
+
+export default connect(mapStateToProps, { signUp })(SignUp);
