@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
@@ -9,8 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import axiosWithAuth from './../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createClass } from './../actions/classActions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,16 +39,11 @@ const initialValues = {
 };
 
 
-export default function CreateClass(props) {
-  const { classList, setClassList } = props;
+const CreateClass = (props) => {
   const classes = useStyles();
   const [values, setValues] = useState(initialValues);
   const [location, setLocation] = useState("");
   const { push } = useHistory();
-
-  // useEffect(() => {
-  //   console.log(values);
-  // }, [values]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -57,18 +52,8 @@ export default function CreateClass(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axiosWithAuth()
-    .post("/api/classes", values)
-    .then(res => {
-      setClassList([
-        ...classList,
-        res.data
-      ])
-      push("/classes")
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    props.createClass(values)
+    push("/classes")
   };
 
   function getLocation() {
@@ -224,3 +209,12 @@ export default function CreateClass(props) {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+  return({
+    isLoading: state.classes.isLoading,
+    error: state.classes.error
+  })
+}
+
+export default connect(mapStateToProps, { createClass })(CreateClass);

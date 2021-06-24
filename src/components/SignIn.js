@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, FormHelperText, Button, TextField, CssBaseline, Grid, Container } from '@material-ui/core';
-import axiosWithAuth from '../utils/axiosWithAuth';
+import { FormControl, FormHelperText, Button, TextField, Grid, Container } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { login } from './../actions/loginActions';
 
 
 import * as yup from 'yup';
 import schema from './../validation/signInFormSchema';
-import { green, red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
     errorText: {
@@ -26,7 +26,7 @@ const initialFormErrors = {
 }
 
 const SignIn = (props) => {
-    const { isAuth, setIsAuth, isInstructor, setIsInstructor } = props;
+    const { isLoading, error, isAuth } = props;
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialFormErrors);
     const [disabled, setDisabled] = useState(true);
@@ -34,6 +34,20 @@ const SignIn = (props) => {
     const { push } = useHistory();
 
     const classes = useStyles();
+
+    useEffect(() => {
+        schema.isValid(formValues).then(valid => setDisabled(!valid))
+    }, [formValues])
+
+    if (isLoading) {
+        return <h1>Loading...</h1>
+    }
+    if(isAuth === true ) {
+        push('/classes')
+    }
+    // if(error) {
+    //     setSignInError("Unable to sign in")
+    // }
 
     const onChange = (e) => {
         e.preventDefault();
@@ -47,23 +61,11 @@ const SignIn = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axiosWithAuth()
-        .post("/api/auth/login", formValues)
-        .then(res => {
-            localStorage.setItem("token", res.data.token)
-            setIsAuth(true)
-            const role = res.data.user.role
-            if(role === "instructor"){
-                setIsInstructor(true)
-                localStorage.setItem("role", role)
-            }
-            push("/classes")
-        })
-        .catch(err => {
-            console.log(err)
-            setSignInError(err)
-            setFormValues(initialFormValues)
-        })
+        props.login(formValues)
+        
+        if(error) {
+            setSignInError("Unable to sign in")
+        }
     }
 
     const validate = (name, value) => {
@@ -72,10 +74,6 @@ const SignIn = (props) => {
         .then(res => setFormErrors({...formErrors, [name]:""}))
         .catch(err => setFormErrors({...formErrors, [name]:err.errors[0]}))
     }
-
-    useEffect(() => {
-        schema.isValid(formValues).then(valid => setDisabled(!valid))
-    }, [formValues])
  
     return(
         <Container component="main" maxWidth="m">
@@ -83,7 +81,6 @@ const SignIn = (props) => {
                 <h2>Sign In</h2>
                 <form className="form">
                     <FormControl className="formInputs">
-                        {/* <InputLabel htmlFor="my-input"></InputLabel> */}
                         <Grid item xs={12}>
                         <TextField 
                             id="filled-basic"
@@ -128,4 +125,12 @@ const SignIn = (props) => {
     )
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.login.isLoading,
+        error: state.login.error,
+        isAuth: state.login.isAuth
+    }
+}
+
+export default connect(mapStateToProps, { login })(SignIn);
