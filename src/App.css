@@ -21,6 +21,7 @@
   background-size: cover;
   background-position: bottom;
   min-height: 80vh;
+  min-width: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,7 +29,7 @@
   font-size: calc(30px + 2vmin);
   color: white;
   text-shadow: 2px 2px #3f51b5;
-  margin: 0;
+  margin: auto;
 }
 
 .App-link {
@@ -135,4 +136,77 @@ footer {
 .classList {
   display: flex;
   flex-wrap: wrap;
+}
+
+/* RESPONSIVE DESIGN */
+
+/*tablet*/
+@media(max-width:800px){
+  .formContainer{
+    border: 1px solid gray;
+    border-radius: 1%;
+    box-shadow: 0px 0px 1px 1px gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: none;
+    margin: 2em auto;
+    width: 90%;
+  }
+  .form {
+    display: flex;
+    height: 75vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  .descriptionContainer {
+    height: 50vh;
+    width: auto;
+  }
+  .descriptionText {
+    width: 90%;
+    padding-bottom: 0;
+  }
+}
+/*phone*/
+@media(max-width:500px){
+  .App-header {
+    min-height: 35vh;
+    background-size: 500px 350px;
+    background-position: top;
+  }
+  .formContainer{
+    border: 1px solid gray;
+    border-radius: 1%;
+    box-shadow: 0px 0px 1px 1px gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: none;
+    margin: 2em auto;
+    width: 90%;
+  }
+  .form {
+    display: flex;
+    height: 75vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  .descriptionContainer {
+    height: 40vh;
+    width: auto;
+  }
+  .descriptionText {
+    width: 90%;
+  }
+  .bottomBanner {
+    height: 40vh;
+    min-height: 30vh;
+    background-size: 500px 300px;
+    background-position: bottom;
+  }  
 }
