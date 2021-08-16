@@ -85,6 +85,7 @@ const SignUp = (props) => {
             setSignUpError(error)
         }
     }
+    console.log(signUpError)
 
     const validate = (name, value) => {
         yup.reach(schema, name)

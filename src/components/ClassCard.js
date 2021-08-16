@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosWithAuth from './../utils/axiosWithAuth';
 import { connect } from 'react-redux';
-import { deleteClass } from './../actions/classActions';
+import { deleteClass, fetchClasses } from './../actions/classActions';
 
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,10 +44,11 @@ const ClassCard = (props) => {
   }
 
   useEffect(() => {
+    // props.fetchClasses()
     if(item.attendees >= item.maxSize) {
       setIsFull(true)
     }
-  },[])
+  },[isRegistered])
 
   const handleDelete = () => {
     props.dispatch(deleteClass(item.classId))
@@ -55,8 +56,10 @@ const ClassCard = (props) => {
 
   const handleRegister = () => {
     axiosWithAuth()
-    .post(`/api/users/enrollment`, item.classId)
+    .post(`/api/users/enrollment`, {classId: item.classId})
     .then(res => {
+      console.log(res)
+      item.attendees += 1
       if(res.statusText === "OK"){
         setIsRegistered(true)
       }
@@ -70,6 +73,8 @@ const ClassCard = (props) => {
     axiosWithAuth()
     .delete(`/api/users/enrollment/${item.classId}`)
     .then(res => {
+      item.attendees -= 1
+      console.log(res)
       setIsRegistered(false)
     })
     .catch(err => {
@@ -119,4 +124,14 @@ const ClassCard = (props) => {
   );
 }
 
-export default connect()(ClassCard)
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.login.isAuth,
+    isInstructor: state.login.isInstructor,
+    classList: state.classes.classList
+  }
+}
+
+export default connect(mapStateToProps, { fetchClasses })(ClassCard);
+
+// export default connect()(ClassCard)

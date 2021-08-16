@@ -11,22 +11,22 @@ function App() {
   // const [isInstructor, setIsInstructor] = useState(false);
   const [classList, setClassList] = useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {
     // if(localStorage.getItem("token")){
     //   setIsAuth(true)
     // }
     // if(localStorage.getItem("role")){
     //   setIsInstructor(true)
     // }
-    axiosWithAuth()
-    .get('/api/classes')
-    .then(res => {
-      setClassList(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }, [])
+  //   axiosWithAuth()
+  //   .get('/api/classes')
+  //   .then(res => {
+  //     setClassList(res.data)
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
+  // }, [])
 
   return (
     <div>

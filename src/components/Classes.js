@@ -29,20 +29,20 @@ const Classes = (props) => {
 
     const { push } = useHistory();
 
-    useEffect(() => {
+    // useEffect(() => {
       // if(classList.length >= 2 ){
       //   setIsVisible(false)
       // }
-      props.fetchClasses()
-    }, [])
+    //   props.fetchClasses()
+    // }, [])
 
     const handleClick = () => {
         push("/create-class");
     }
 
-    const handleFetch = () => {
-      props.fetchClasses()
-    }
+    // const handleFetch = () => {
+    //   props.fetchClasses()
+    // }
 
     return (
         <Container>
@@ -52,7 +52,7 @@ const Classes = (props) => {
               {isInstructor ? <Button variant='contained' color='primary' onClick={handleClick}>Create Class</Button> : <div></div>}
               {/* {isVisible ? <Button variant='contained' color='primary' onClick={handleFetch}>Fetch All Classes</Button> : <div></div>} */}
             </div>
-            <Search />
+            {/* <Search /> */}
            <Grid container spacing={2}>
             {
                 classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item} classList={classList} setClassList={setClassList}/>)
