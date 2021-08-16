@@ -8,7 +8,7 @@ export const SIGNUP_FAIL = "LOGIN_FAIL";
 export const signUp = (credentials) => {
     return (dispatch) => {
         dispatch(signUpStart(credentials));
-
+        
         axios
         .post("https://anywhere-fitness-back-end.herokuapp.com/api/auth/register", credentials)
         .then(res=> {
