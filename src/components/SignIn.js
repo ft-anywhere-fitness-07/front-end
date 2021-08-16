@@ -47,9 +47,6 @@ const SignIn = (props) => {
     if(isAuth === true ) {
         push('/classes')
     }
-    // if(error) {
-    //     setSignInError("Unable to sign in")
-    // }
 
     const onChange = (e) => {
         e.preventDefault();

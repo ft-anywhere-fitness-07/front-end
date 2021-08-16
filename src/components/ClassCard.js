@@ -44,7 +44,6 @@ const ClassCard = (props) => {
   }
 
   useEffect(() => {
-    // props.fetchClasses()
     if(item.attendees >= item.maxSize) {
       setIsFull(true)
     }
@@ -133,5 +132,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, { fetchClasses })(ClassCard);
-
-// export default connect()(ClassCard)

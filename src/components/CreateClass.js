@@ -39,7 +39,6 @@ const initialValues = {
   location: "",
 };
 
-
 const CreateClass = (props) => {
   const classes = useStyles();
   const [values, setValues] = useState(initialValues);

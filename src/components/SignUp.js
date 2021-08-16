@@ -11,17 +11,12 @@ import * as yup from 'yup';
 import { FormControl, FormHelperText, Button, TextField, RadioGroup, FormLabel, FormControlLabel, Radio, Container, Grid } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
-import { spacing } from '@material-ui/system';
 
 const useStyles = makeStyles({
     errorText: {
         color:"red"
     }
 });
-
-const theme = {
-    spacing: value => value ** 2,
-};
 
 const BlueRadio = withStyles({
     root: {

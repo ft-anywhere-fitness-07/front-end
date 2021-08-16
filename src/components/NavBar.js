@@ -100,16 +100,13 @@ function TabPanel(props) {
                 <SignIn />
             </Route>
 
-            <PrivateRoute exact path='/classes' > 
-                <Classes />
+            <PrivateRoute exact path='/classes' comp={Classes}>
             </PrivateRoute>
 
-            <PrivateRoute exact path='/create-class' >
-                 <CreateClass />
+            <PrivateRoute exact path='/create-class' comp={CreateClass}>
             </PrivateRoute>
 
-            <PrivateRoute exact path='/edit-class/:id'>
-                 <EditClass />
+            <PrivateRoute exact path='/edit-class/:id' comp={EditClass}>
             </PrivateRoute>
             </Switch>
         </div>

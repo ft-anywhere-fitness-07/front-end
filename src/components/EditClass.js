@@ -42,7 +42,6 @@ const initialItem = {
   location: "",
 };
 
-
 const EditClass = (props) => {
   const classes = useStyles();
   const [item, setItem] = useState(initialItem);
@@ -236,4 +235,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, { editClass })(EditClass);
-
