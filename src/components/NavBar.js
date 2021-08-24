@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Route, Switch, useHistory } from 'react-router-dom'
+import { Link, Route, Switch, useHistory, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { logout } from './../actions/loginActions';
 
@@ -100,13 +100,13 @@ function TabPanel(props) {
                 <SignIn />
             </Route>
 
-            <PrivateRoute exact path='/classes' comp={Classes}>
+            <PrivateRoute exact path='/classes' component={Classes} isAuth={isAuth}>
             </PrivateRoute>
 
-            <PrivateRoute exact path='/create-class' comp={CreateClass}>
+            <PrivateRoute exact path='/create-class' component={CreateClass} isAuth={isAuth}>
             </PrivateRoute>
 
-            <PrivateRoute exact path='/edit-class/:id' comp={EditClass}>
+            <PrivateRoute exact path='/edit-class/:id' component={EditClass} isAuth={isAuth}>
             </PrivateRoute>
             </Switch>
         </div>
@@ -119,4 +119,4 @@ function TabPanel(props) {
     }
   }
 
-  export default connect(mapStateToProps, { logout })(NavBar);
+  export default withRouter(connect(mapStateToProps, { logout })(NavBar));

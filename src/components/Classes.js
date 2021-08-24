@@ -13,7 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
 const Classes = (props) => {
-    const { isInstructor, classList, setClassList } = props;
+    const { isInstructor, classList } = props;
 
     const { push } = useHistory();
 
@@ -31,7 +31,7 @@ const Classes = (props) => {
             {/* <Search /> */}
            <Grid container spacing={2}>
             {
-                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item} classList={classList} setClassList={setClassList}/>)
+                classList.map(item => <ClassCard key={item.classId} isInstructor={isInstructor} item={item} classList={classList}/>)
             }
             </Grid>
         </div >

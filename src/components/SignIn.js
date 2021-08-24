@@ -39,7 +39,7 @@ const SignIn = (props) => {
 
     useEffect(() => {
         schema.isValid(formValues).then(valid => setDisabled(!valid))
-    }, [formValues])
+    }, [formValues, signInError])
 
     if (isLoading) {
         return <h1>Loading...</h1>
@@ -61,7 +61,7 @@ const SignIn = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
         props.login(formValues)
-        
+
         if(error) {
             setSignInError("Unable to sign in")
         }
@@ -75,7 +75,7 @@ const SignIn = (props) => {
     }
  
     return(
-        <Container component="main" maxWidth="m">
+        <Container component="main" maxWidth="lg">
             <div className="formContainer" style={{ borderRadius: 5 }} >
                 <h2>Sign In</h2>
                 <form className="form">

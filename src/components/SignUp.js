@@ -70,13 +70,10 @@ const SignUp = (props) => {
         })
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         props.signUp(formValues)
-        if(isAuth === true){
-            push("/classes")
-        }
-        else if(error) {
+        if(error) {
             setSignUpError(error)
         }
     }
@@ -89,7 +86,7 @@ const SignUp = (props) => {
     }
 
     return(
-        <Container component="main" maxWidth="m">
+        <Container component="main" maxWidth="lg">
             <div className="formContainer">
                 <h2>Sign Up</h2>
                 <form className="form">
@@ -102,7 +99,6 @@ const SignUp = (props) => {
                             variant="outlined"
                             fullWidth
                             required
-                            defaultValue="Create username"
                             type="text"
                             name="username"
                             value={formValues.username}
@@ -117,7 +113,6 @@ const SignUp = (props) => {
                             id="filled-basic"
                             label="Email Address" 
                             aria-describedby="email address input field"
-                            defaultValue="Email address"
                             variant="outlined"
                             fullWidth
                             required
@@ -136,7 +131,6 @@ const SignUp = (props) => {
                         variant="outlined"
                         fullWidth
                         required
-                        defaultValue="Create password"
                         type="password"
                         name="password"
                         value={formValues.password}

@@ -74,7 +74,7 @@ const CreateClass = (props) => {
   }
 
   return (
-    <Container component="main" maxWidth="m">
+    <Container component="main" maxWidth="lg">
       <div className='formContainer' >
         <Typography component="h1" variant="h5">
           Create Class
