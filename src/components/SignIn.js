@@ -58,10 +58,12 @@ const SignIn = (props) => {
         })
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        props.login(formValues)
-
+        await props.login(formValues)
+        if(isAuth === true) {
+            push('/classes')
+        }
         if(error) {
             setSignInError("Unable to sign in")
         }

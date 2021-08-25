@@ -47,7 +47,7 @@ const SignUp = (props) => {
     const [formValues, setFormValues] = useState(initialFormValues);
     const [formErrors, setFormErrors] = useState(initialErrorValues);
     const [disabled, setDisabled] = useState(true);
-    const [signUpError, setSignUpError] = useState("");
+    const [signUpError, setSignUpError] = useState(false);
     const { push } = useHistory();
 
     const classes = useStyles();
@@ -72,9 +72,12 @@ const SignUp = (props) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        props.signUp(formValues)
-        if(error) {
-            setSignUpError(error)
+        await props.signUp(formValues)
+        if(error.length !== 0) {
+            setSignUpError("Unable to sign up: Username or Email may already be taken")
+        }
+        else{
+            push("/classes")
         }
     }
 

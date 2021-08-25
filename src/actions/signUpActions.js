@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'
 
-export const SIGNUP_START = "LOGIN_START";
-export const SIGNUP_SUCCESS = "LOGIN_SUCCESS";
-export const SIGNUP_FAIL = "LOGIN_FAIL";
+export const SIGNUP_START = "SIGNUP_START";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAIL = "SIGNUP_FAIL";
 
 
 export const signUp = (credentials) => {
@@ -16,7 +15,6 @@ export const signUp = (credentials) => {
             localStorage.setItem("token", res.data.token)
             localStorage.setItem("role", res.data.user.role)
             dispatch(signUpSuccess(res.data.token, res.data.user.role))
-            useHistory().push('/classes')
         })
         .catch(err => {
             dispatch(signUpFail(err))
