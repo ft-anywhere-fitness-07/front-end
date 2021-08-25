@@ -3,7 +3,8 @@ import * as yup from 'yup';
 const schema = yup.object().shape({
     username:
         yup.string().trim()
-            .required("A username is required"),
+            .required("A username is required")
+            .min(8, "Username must be at least 8 characters"),
     
     email:
         yup.string()
