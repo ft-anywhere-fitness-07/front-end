@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchClasses } from './../actions/classActions';
@@ -16,6 +16,10 @@ const Classes = (props) => {
     const { isInstructor, classList } = props;
 
     const { push } = useHistory();
+
+    useEffect(() => {
+      props.fetchClasses()
+    }, [])
 
     const handleClick = () => {
         push("/create-class");
