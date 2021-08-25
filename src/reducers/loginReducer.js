@@ -51,6 +51,7 @@ const reducer = (state = initialState, action) => {
         case(SIGNUP_FAIL):
             return({
                 ...state,
+                isLoading: false,
                 error: action.payload
             })
         default: return state

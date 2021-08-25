@@ -50,7 +50,7 @@ const ClassCard = (props) => {
   },[isRegistered])
 
   const handleDelete = () => {
-    props.dispatch(deleteClass(item.classId))
+    props.deleteClass(item.classId)
   }
 
   const handleRegister = () => {
@@ -131,4 +131,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchClasses })(ClassCard);
+export default connect(mapStateToProps, { fetchClasses, deleteClass })(ClassCard);

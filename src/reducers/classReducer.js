@@ -51,10 +51,15 @@ const reducer = (state = initialState, action) => {
                 isLoading: true
             })
         case(EDIT_CLASS_SUCCESS):
+            const index = state.classList.findIndex(item => item.classId === action.payload.classId)
+            const newArray = [...state.classList]
+            newArray[index] = action.payload
+            console.log(index)
+            console.log(newArray)
             return({
                 ...state,
                 isLoading: false,
-                classList: [...state.classList, action.payload]
+                classList: newArray
             })
         case(EDIT_CLASS_FAIL):
             return({
