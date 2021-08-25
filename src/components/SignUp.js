@@ -56,8 +56,12 @@ const SignUp = (props) => {
         schema.isValid(formValues).then(valid => setDisabled(!valid))
     }, [formValues])
 
-    if (isLoading) {
-        return <h1>Loading...</h1>
+    // if (isLoading) {
+    //     return <h1>Loading...</h1>
+    // }
+
+    if(isAuth === true ) {
+        push('/classes')
     }
 
     const handleChange = (e) => {
