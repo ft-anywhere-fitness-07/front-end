@@ -26,6 +26,7 @@ While you could use several mobile apps to accomplish this, **AnywhereFitness** 
 
 Instructors can take attendance, request and process payments, create virtual “punch passes” for each type of class offered, alert clients of cancellations or location changes and so much more. Clients can easily find out information on classes - location, class size, start time and duration, as well as reschedule or cancel an upcoming appointment or reservation right from the mobile app.
 
+# Features
 
 1. User can create/register as a `client` and login with the registered credentials.
 
@@ -43,3 +44,18 @@ Instructors can take attendance, request and process payments, create virtual �
 - `Max class size`
 
 5. Authenticated `user` can reserve a spot in a `class` with available seats open, and can reschedule or cancel their current `reservation` from the mobile app.
+
+# Features to implement in the future
+
+- Authenticated `client` can search for available classes. At a minimum, they must be able to search by the following criteria:
+
+- `class time`
+- `class date`
+- `class duration`
+- `class type`
+- `intensity level`
+- `class location`
+
+- Authenticated `instructor` can create virtual punch pass categories for each type of group fitness class they offer (yoga, insanity, RIPPED, pilates, etc.)
+
+- Implement payments using PayPal, Stripe or another 3rd party API.
